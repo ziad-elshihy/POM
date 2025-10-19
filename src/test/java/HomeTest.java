@@ -5,24 +5,21 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LoginTest {
+public class HomeTest {
     // init driver
     WebDriver driver;
 
     // Tests
     @Test
-    public void validLoginTC() {
+    public void addToCartTC() {
         new LoginPage(driver)
-        .login("standard_user","secret_sauce")
-        .isLoggedIn("https://www.saucedemo.com/inventory.html");
+                .login("standard_user","secret_sauce")
+                .isLoggedIn("https://www.saucedemo.com/inventory.html")
+                .addItemToCart()
+                .isItemAddedToCart();
     }
 
-    @Test
-    public void inValidLoginTC() {
-        new LoginPage(driver)
-        .login("standard","secret_sauce")
-        .isLoggedIn("https://www.saucedemo.com/inventory.html");
-    }
+
 
     // Configuration and setup methods would go here
     @BeforeMethod

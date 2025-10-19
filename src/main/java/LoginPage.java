@@ -1,17 +1,18 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import java.util.Objects;
 
 public class LoginPage {
     // Variables
-    WebDriver driver;
+    private final WebDriver driver;
 
     // Locators
-    private final By usernameField = By.id("user-name"); // standard_user
-    private final By passwordField = By.id("password"); // secret_sauce
+    private final By usernameField = By.id("user-name");
+    private final By passwordField = By.id("password");
     private final By loginButton = By.id("login-button");
-    //url: https://www.saucedemo.com/
+
 
     // Constructor
     public LoginPage(WebDriver driver){
@@ -19,13 +20,15 @@ public class LoginPage {
     }
 
     // Methods
-    public void login(String username, String password){
+    public LoginPage login(String username, String password){
         driver.findElement(usernameField).sendKeys(username);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(loginButton).click();
+        return this;
     }
 
-    public boolean isLoggedIn(String expectedUrl){
-        return Objects.equals(driver.getCurrentUrl(), expectedUrl);
+    public HomePage isLoggedIn(String expectedUrl){
+        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+        return new HomePage(driver);
     }
 }
