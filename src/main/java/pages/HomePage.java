@@ -1,10 +1,15 @@
+package pages;
+
+import bots.ActionBots;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class HomePage {
     // Variables
-    WebDriver driver;
+    private WebDriver driver;
+    private ActionBots actionBots;
+
 
     // Locators
     private final By addToCartButton = By.cssSelector(".inventory_item_description #add-to-cart-sauce-labs-backpack");
@@ -15,28 +20,29 @@ public class HomePage {
     // Constructor
     public HomePage(WebDriver driver){
         this.driver = driver;
+        this.actionBots = new ActionBots(driver);
     }
 
     // Methods
     public HomePage addItemToCart(){
-        driver.findElement(addToCartButton).click();
+        actionBots.click(addToCartButton);
         return this;
     }
 
     public HomePage goToCart(){
-        driver.findElement(cartIconButton).click();
+        actionBots.click(cartIconButton);
         return this;
     }
 
     // Validation Methods
     public HomePage isItemAddedToCart() {
-        String count = driver.findElement(cartIconNumber).getText();
+        String count = actionBots.getText(cartIconNumber);
         Assert.assertEquals(count, "1");
         return this;
     }
 
     public CartPage isOnCartPage() {
-        String title = driver.findElement(cartPageTitle).getText();
+        String title = actionBots.getText(cartPageTitle);
         Assert.assertEquals(title, "Your Cart");
         return new CartPage(driver);
     }
