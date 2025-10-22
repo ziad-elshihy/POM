@@ -1,5 +1,6 @@
 package tests;
 
+import drivers.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -34,15 +35,12 @@ public class LoginTest {
     // Configuration and setup methods would go here
     @BeforeMethod
     public void setup() {
-        EdgeOptions options = new EdgeOptions();
-        options.addArguments("--start-maximized");
-        options.addArguments("--headless=new");
-        driver = new EdgeDriver(options);
+        driver = WebDriverFactory.initDriver("edge");
         driver.get("https://www.saucedemo.com/");
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        WebDriverFactory.quitDriver();
     }
 }
